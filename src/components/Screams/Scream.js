@@ -1,30 +1,30 @@
-import React from "react";
+import React from 'react';
 import {
   makeStyles,
   Card,
   CardContent,
   Typography,
   Avatar,
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    display: "flex",
-    marginBottom: "2rem",
+    display: 'flex',
+    marginBottom: '2rem',
   },
   link: {
-    textDecoration: "none",
+    textDecoration: 'none',
   },
   image: {
     minWidth: 200,
   },
   row: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
     marginBottom: theme.spacing(3),
   },
   avatar: {
@@ -55,7 +55,7 @@ export default function Scream({
   const classes = useStyles();
   return (
     <Card className={classes.card}>
-      <CardContent style={{ width: "100%" }}>
+      <CardContent style={{ width: '100%' }}>
         <div className={classes.row}>
           <Avatar
             className={classes.avatar}
@@ -63,15 +63,17 @@ export default function Scream({
             src={userImage}
           />
 
-          <Typography
-            className={classes.link + " " + classes.displayName}
-            variant="h5"
-            component={Link}
-            to={`/users/${displayName}`}
-            color="primary"
-          >
-            {displayName}
-          </Typography>
+          <div className={classes.displayName}>
+            <Typography
+              className={classes.link}
+              variant="h5"
+              component={Link}
+              to={`/users/${displayName}`}
+              color="primary"
+            >
+              {displayName}
+            </Typography>
+          </div>
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>

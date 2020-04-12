@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
 import RecentScreams from '../Screams/RecentScreams';
+import Profile from '../Profile';
 
 export default function Home() {
   const [screams, setScreams] = useState([]);
@@ -21,7 +22,7 @@ export default function Home() {
         <RecentScreams screams={screams} />
       </Grid>
       <Grid item sm={4} xs={12}>
-        <p>profile</p>
+        <Profile />
       </Grid>
     </Grid>
   );

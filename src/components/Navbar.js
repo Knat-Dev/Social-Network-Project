@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
 // MUI
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 import {
   makeStyles,
   useTheme,
@@ -12,21 +12,22 @@ import {
   createMuiTheme,
   Tooltip,
   Grid,
-} from "@material-ui/core";
-import { ThemeContext } from "../Providers/ThemeProvider";
-import { Brightness4, Brightness7 } from "@material-ui/icons";
+} from '@material-ui/core';
+import { ThemeContext } from '../Providers/ThemeProvider';
+import { Brightness4, Brightness7 } from '@material-ui/icons';
+import { connect } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   right: {
-    display: "flex",
-    justifyContent: "flex-end",
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   center: {
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 
-export default function Navbar() {
+const Navbar = () => {
   const _theme = useTheme();
   const themeMode = _theme.palette.type;
   const [theme, setTheme] = useContext(ThemeContext);
@@ -38,7 +39,7 @@ export default function Navbar() {
         palette: {
           primary: { ...theme.palette.primary },
           secondary: { ...theme.palette.secondary },
-          type: theme.palette.type === "dark" ? "light" : "dark",
+          type: theme.palette.type === 'dark' ? 'light' : 'dark',
         },
       })
     );
@@ -63,8 +64,8 @@ export default function Navbar() {
           </Grid>
           <Grid item sm={4} className={classes.right}>
             <Tooltip title="Change Theme Contrast">
-              <IconButton color={"inherit"} onClick={toggleTheme}>
-                {themeMode === "dark" ? <Brightness4 /> : <Brightness7 />}
+              <IconButton color={'inherit'} onClick={toggleTheme}>
+                {themeMode === 'dark' ? <Brightness4 /> : <Brightness7 />}
               </IconButton>
             </Tooltip>
           </Grid>
@@ -72,4 +73,6 @@ export default function Navbar() {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+export default connect()(Navbar);
