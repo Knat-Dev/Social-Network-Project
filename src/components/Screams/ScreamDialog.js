@@ -19,6 +19,7 @@ import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 import CloseIcon from '@material-ui/icons/Close';
 import TooltipButton from '../util/TooltipButton';
 import SocialButtons from './SocialButtons';
+import Comments from './Comments';
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ScreamDialog({
-  scream: { userImage, createdAt, body, likeCount },
+  scream: { userImage, createdAt, body, likeCount, commentCount, comments },
   ui: { loading },
   authenticated,
   getScream,
@@ -82,8 +83,15 @@ function ScreamDialog({
         screamId={screamId}
         likeCount={likeCount}
         likedScream={likedScream}
+        commentCount={commentCount}
       />
     </DialogActions>
+  );
+
+  const commentView = (
+    <DialogContent>
+      <Comments comments={comments} />
+    </DialogContent>
   );
 
   const dialogMarkup = loading ? (
@@ -137,6 +145,7 @@ function ScreamDialog({
           {dialogMarkup}
         </DialogContent>
         {actionArea}
+        {commentView}
       </Dialog>
     </>
   );

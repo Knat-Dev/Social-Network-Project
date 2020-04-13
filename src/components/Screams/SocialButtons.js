@@ -10,11 +10,11 @@ import ChatIcon from '@material-ui/icons/Chat';
 function SocialButtons({
   authenticated,
   screamId,
-  commentCount,
-  likeCount,
   likedScream,
   likeScream,
   unlikeScream,
+  likeCount,
+  commentCount,
 }) {
   const like = () => {
     likeScream(screamId);
@@ -58,6 +58,7 @@ function SocialButtons({
 
 const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
+  scream: state.data.scream,
 });
 
 export default connect(mapStateToProps, { likeScream, unlikeScream })(

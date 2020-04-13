@@ -6,6 +6,7 @@ import {
   DELETE_SCREAM,
   POST_SCREAM,
   SET_SCREAM,
+  SUBMIT_COMMENT,
 } from '../types';
 
 const initialState = {
@@ -40,7 +41,7 @@ export default (state = initialState, action) => {
       );
       state.screams[index] = action.payload;
       if (state.scream.screamId === action.payload.screamId)
-        state.scream = action.payload;
+        state.scream = { ...state.scream, ...action.payload };
       return { ...state };
     }
     case DELETE_SCREAM: {
@@ -57,6 +58,14 @@ export default (state = initialState, action) => {
         screams: [action.payload, ...state.screams],
       };
     }
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        scream: {
+          ...state.scream,
+          comments: [action.payload, ...state.scream.comments],
+        },
+      };
     default:
       return state;
   }
