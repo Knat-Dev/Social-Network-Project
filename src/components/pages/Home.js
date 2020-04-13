@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
-import axios from 'axios';
 import RecentScreams from '../Screams/RecentScreams';
 import Profile from '../Profile';
+import { connect } from 'react-redux';
+import { getScreams } from '../../redux/actions/dataActions';
 
-export default function Home() {
-  const [screams, setScreams] = useState([]);
-
+function Home({ getScreams, data: { screams, loading } }) {
   useEffect(() => {
-    async function fetchScreams() {
-      axios.get('/screams').then((res) => {
-        setScreams(res.data);
-      });
-    }
-    fetchScreams();
-  }, []);
+    getScreams();
+  }, [getScreams]);
 
   return (
     <Grid container spacing={5}>
@@ -27,3 +21,8 @@ export default function Home() {
     </Grid>
   );
 }
+
+const mapStateToProps = (state) => ({
+  data: state.data,
+});
+export default connect(mapStateToProps, { getScreams })(Home);

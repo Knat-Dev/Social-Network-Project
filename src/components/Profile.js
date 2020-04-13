@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import EditIcon from '@material-ui/icons/Edit';
+import CloudUpload from '@material-ui/icons/CloudUpload';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
 import dayjs from 'dayjs';
@@ -68,6 +68,10 @@ const useStyles = makeStyles((theme) => ({
       margin: '20px 10px',
     },
   },
+  flexRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   button: {
     margin: '0 3rem',
   },
@@ -108,9 +112,9 @@ const Profile = ({
               id="imageInput"
               onChange={handleUploadImage}
             />
-            <Tooltip title="Edit Profile Image" placement="top">
+            <Tooltip title="Upload Profile Image">
               <IconButton onClick={handleEditImage} className="button">
-                <EditIcon color="primary" />
+                <CloudUpload color="primary" />
               </IconButton>
             </Tooltip>
           </div>
@@ -121,35 +125,37 @@ const Profile = ({
               color={'primary'}
               variant="h5"
             >
-              @{displayName}
+              <span style={{ marginBottom: '1rem' }}> @{displayName}</span>
             </MuiLink>
             <Divider />
-            {bio && (
-              <>
-                {bio}
-                <hr />
-              </>
-            )}
-            {location && (
-              <>
-                <LocationOnIcon color="primary" />
-                <span>{location}</span>
-                <hr />
-              </>
-            )}
-            {website && (
-              <>
-                <LinkIcon color="primary" />{' '}
-                <a href={website} rel="noopener noreferrer">
-                  {website}
-                </a>
-                <hr />
-              </>
-            )}
+            <div style={{ marginTop: '1rem' }}>
+              {bio && (
+                <>
+                  {bio}
+                  <hr />
+                </>
+              )}
+              {location && (
+                <>
+                  <LocationOnIcon color="primary" />
+                  <span>{location}</span>
+                  <hr />
+                </>
+              )}
+              {website && (
+                <>
+                  <LinkIcon color="primary" />{' '}
+                  <a href={website} rel="noopener noreferrer">
+                    {website}
+                  </a>
+                  <hr />
+                </>
+              )}
+            </div>
             <CalendarTodayIcon color="primary" />{' '}
             <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
-          <div className={classes.buttons}>
+          <div className={classes.buttons + ' ' + classes.flexRow}>
             <Tooltip title="Logout" placement="top">
               <IconButton onClick={handleLogout}>
                 <KeyboardReturnIcon color="primary" />

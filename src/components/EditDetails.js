@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  makeStyles,
   Button,
   Dialog,
   DialogTitle,
@@ -14,8 +13,6 @@ import {
 import { connect } from 'react-redux';
 import { editUserDetails } from '../redux/actions/userActions';
 import EditIcon from '@material-ui/icons/Edit';
-
-const useStyles = makeStyles((theme) => ({}));
 
 function EditDetails({
   editUserDetails,
@@ -52,7 +49,6 @@ function EditDetails({
     setWebsite(userWebsite);
   }, [userBio, userLocation, userWebsite]);
 
-  const classes = useStyles();
   return (
     <>
       <Tooltip placement="top" title="Edit Details">
@@ -74,7 +70,7 @@ function EditDetails({
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             autoFocus
-            margin="dense"
+            margin="normal"
             id="bio"
             label="Bio Information"
             type="text"
@@ -83,7 +79,7 @@ function EditDetails({
           <TextField
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
-            margin="dense"
+            margin="normal"
             id="website"
             label="Your Website"
             type="text"
@@ -92,7 +88,7 @@ function EditDetails({
           <TextField
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            margin="dense"
+            margin="normal"
             id="location"
             label="Location"
             type="text"
@@ -100,7 +96,7 @@ function EditDetails({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button variant="contained" onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">

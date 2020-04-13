@@ -13,6 +13,7 @@ import PhotoCredit from '../PhotoCredit';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../redux/actions/userActions';
+import SpinnerButton from '../util/SpinnerButton';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -31,9 +32,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     position: 'relative',
   },
-  progress: {
-    position: 'absolute',
-  },
+
   link: {
     textDecoration: 'none',
     color: theme.palette.primary.main,
@@ -109,22 +108,12 @@ const Login = (props) => {
             </Typography>
           )}
           <FormControl fullWidth margin="normal">
-            <Button
-              disabled={loading}
+            <SpinnerButton
+              color="primary"
               type="submit"
-              fullWidth
-              color={'primary'}
-              variant={'contained'}
-            >
-              Login
-              {loading && (
-                <CircularProgress
-                  color={'secondary'}
-                  size={30}
-                  className={classes.progress}
-                />
-              )}
-            </Button>
+              text="Login"
+              loading={loading}
+            />
           </FormControl>
           <small>
             Don't have an account yet? Register{' '}

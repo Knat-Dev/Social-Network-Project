@@ -14,8 +14,16 @@ import {
   Grid,
 } from '@material-ui/core';
 import { ThemeContext } from '../Providers/ThemeProvider';
-import { Brightness4, Brightness7 } from '@material-ui/icons';
+import {
+  Brightness4,
+  Brightness7,
+  Add,
+  Home,
+  Notifications,
+} from '@material-ui/icons';
 import { connect } from 'react-redux';
+import TooltipIconButton from './util/TooltipIconButton';
+import PostScream from './Screams/PostScream';
 const useStyles = makeStyles((theme) => ({
   right: {
     display: 'flex',
@@ -25,9 +33,16 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
+  logo: {
+    height: '40px',
+  },
+  iconButton: {
+    color: '#fff',
+    margin: '0 2rem',
+  },
 }));
 
-const Navbar = () => {
+const Navbar = ({ authenticated }) => {
   const _theme = useTheme();
   const themeMode = _theme.palette.type;
   const [theme, setTheme] = useContext(ThemeContext);
@@ -44,7 +59,6 @@ const Navbar = () => {
       })
     );
   };
-
   const classes = useStyles();
   return (
     <AppBar>
@@ -52,15 +66,31 @@ const Navbar = () => {
         <Grid container alignItems="center" justify="center">
           <Grid item sm={4}></Grid>
           <Grid item sm={4} className={classes.center}>
-            <Button color="inherit" component={Link} to="/login">
-              Login
-            </Button>
-            <Button color="inherit" component={Link} to="/">
-              Home
-            </Button>
-            <Button color="inherit" component={Link} to="/signup">
-              Signup
-            </Button>
+            {authenticated ? (
+              <>
+                <PostScream className={classes.iconButton} />
+                <TooltipIconButton tip="Home" onClick={() => {}} to="/">
+                  <Home />
+                </TooltipIconButton>
+                <Tooltip title="Notifications">
+                  <IconButton className={classes.iconButton}>
+                    <Notifications />
+                  </IconButton>
+                </Tooltip>
+              </>
+            ) : (
+              <>
+                <Button color="inherit" component={Link} to="/login">
+                  Login
+                </Button>
+                <Button color="inherit" component={Link} to="/">
+                  Home
+                </Button>
+                <Button color="inherit" component={Link} to="/signup">
+                  Signup
+                </Button>
+              </>
+            )}
           </Grid>
           <Grid item sm={4} className={classes.right}>
             <Tooltip title="Change Theme Contrast">
@@ -74,5 +104,7 @@ const Navbar = () => {
     </AppBar>
   );
 };
-
-export default connect()(Navbar);
+const mapStateToProps = (state) => ({
+  authenticated: state.user.authenticated,
+});
+export default connect(mapStateToProps)(Navbar);

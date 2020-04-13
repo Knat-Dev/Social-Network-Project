@@ -11,7 +11,7 @@ import axios from 'axios';
 export const loginUser = (userData, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/login', userData)
+    .post(`${process.env.REACT_APP_API}/login`, userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
@@ -30,7 +30,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 export const signupUser = (userData, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/signup', userData)
+    .post(`${process.env.REACT_APP_API}/signup`, userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
@@ -55,7 +55,7 @@ const setAuthorizationHeader = (token) => {
 export const getUserData = () => (dispatch) => {
   dispatch({ type: LOADING_USER });
   axios
-    .get('/user')
+    .get(`${process.env.REACT_APP_API}/user`)
     .then((res) => {
       dispatch({ type: SET_USER, payload: res.data });
     })
@@ -71,7 +71,7 @@ export const logoutUser = () => (dispatch) => {
 export const editUserDetails = (userDetails) => (dispatch) => {
   dispatch({ type: LOADING_USER });
   axios
-    .post('/user', userDetails)
+    .post(`${process.env.REACT_APP_API}/user`, userDetails)
     .then(() => {
       dispatch(getUserData());
     })
@@ -81,7 +81,7 @@ export const editUserDetails = (userDetails) => (dispatch) => {
 export const uploadImage = (formData) => (dispatch) => {
   dispatch({ type: LOADING_USER });
   axios
-    .post('/user/image', formData)
+    .post(`${process.env.REACT_APP_API}/user/image`, formData)
     .then((response) => {
       dispatch(getUserData());
     })
