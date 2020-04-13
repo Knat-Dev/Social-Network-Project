@@ -4,9 +4,7 @@ import {
   makeStyles,
   Grid,
   Typography,
-  Button,
   FormControl,
-  CircularProgress,
 } from '@material-ui/core';
 import AppIcon from '../../images/monkey.png';
 import PhotoCredit from '../PhotoCredit';

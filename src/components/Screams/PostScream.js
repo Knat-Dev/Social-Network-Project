@@ -28,10 +28,6 @@ function PostScream({
     setErrors(_errors);
   }, [_errors]);
 
-  useEffect(() => {
-    !loading && body !== '' && setOpen(false);
-  }, [loading]);
-
   const handleClickOpen = () => {
     setOpen(true);
   };

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-
 // MUI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,7 +16,6 @@ import { ThemeContext } from '../Providers/ThemeProvider';
 import {
   Brightness4,
   Brightness7,
-  Add,
   Home,
   Notifications,
 } from '@material-ui/icons';

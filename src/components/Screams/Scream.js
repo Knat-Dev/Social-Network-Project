@@ -16,13 +16,11 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 import { connect } from 'react-redux';
-import TooltipButton from '../util/TooltipButton';
 
 // Icons
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import ChatIcon from '@material-ui/icons/Chat';
 import DeleteScream from './DeleteScream';
+import ScreamDialog from './ScreamDialog';
+import SocialButtons from './SocialButtons';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -82,28 +80,6 @@ function Scream({
     return likes && likes.find((like) => screamId === like.screamId);
   };
 
-  const like = () => {
-    likeScream(screamId);
-  };
-
-  const unlike = () => {
-    unlikeScream(screamId);
-  };
-
-  const likeButton = !authenticated ? (
-    <TooltipButton tip="Like" to="/login" badgeContent={likeCount}>
-      <FavoriteBorder color="primary" />
-    </TooltipButton>
-  ) : likedScream() ? (
-    <TooltipButton tip="Unlike" badgeContent={likeCount} onClick={unlike}>
-      <FavoriteIcon color="primary" />
-    </TooltipButton>
-  ) : (
-    <TooltipButton tip="Like" badgeContent={likeCount} onClick={like}>
-      <FavoriteBorder color="primary" />
-    </TooltipButton>
-  );
-
   const deleteScream = authenticated && displayName === authDisplayName && (
     <DeleteScream screamId={screamId} />
   );
@@ -141,16 +117,20 @@ function Scream({
       </CardActionArea>
       <CardActions>
         <div className={classes.grow}>
-          <Tooltip title="Comments">
-            <IconButton>
-              <Badge color={'secondary'} badgeContent={commentCount}>
-                <ChatIcon color={'primary'} />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-          {likeButton}
+          <SocialButtons
+            screamId={screamId}
+            likeCount={likeCount}
+            likedScream={likedScream}
+            commentCount={commentCount}
+          />
         </div>
         {deleteScream}
+        <ScreamDialog
+          screamId={screamId}
+          displayName={displayName}
+          likedScream={likedScream}
+          commentCount={commentCount}
+        />
       </CardActions>
     </Card>
   );

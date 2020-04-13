@@ -5,6 +5,7 @@ import {
   UNLIKE_SCREAM,
   DELETE_SCREAM,
   POST_SCREAM,
+  SET_SCREAM,
 } from '../types';
 
 const initialState = {
@@ -20,6 +21,12 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
       };
+    case SET_SCREAM: {
+      return {
+        ...state,
+        scream: action.payload,
+      };
+    }
     case SET_SCREAMS:
       return {
         ...state,
@@ -32,6 +39,8 @@ export default (state = initialState, action) => {
         (scream) => scream.screamId === action.payload.screamId
       );
       state.screams[index] = action.payload;
+      if (state.scream.screamId === action.payload.screamId)
+        state.scream = action.payload;
       return { ...state };
     }
     case DELETE_SCREAM: {
