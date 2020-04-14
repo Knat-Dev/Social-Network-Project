@@ -24,7 +24,6 @@ const DeleteScream = ({ screamId, deleteScream }) => {
   };
 
   const deleteUserScream = () => {
-    console.log(screamId);
     deleteScream(screamId);
     setOpen(false);
   };

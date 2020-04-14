@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextField,
   Button,
@@ -17,12 +17,13 @@ import TooltipIconButton from '../util/TooltipButton';
 
 const useStyles = makeStyles((theme) => ({}));
 
-function CommentForm({ ui, submitComment, authenticated }) {
+function CommentForm({ ui, submitComment, authenticated, screamId }) {
+  const [commentBody, setCommentBody] = useState('');
   const classes = useStyles();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('hi!');
+    submitComment(screamId, { body: commentBody });
   };
 
   const formMarkup = authenticated && (
@@ -30,6 +31,8 @@ function CommentForm({ ui, submitComment, authenticated }) {
       <form onSubmit={onSubmit}>
         <FormControl fullWidth>
           <TextField
+            value={commentBody}
+            onChange={(e) => setCommentBody(e.target.value)}
             label="Comment"
             InputProps={{
               endAdornment: (

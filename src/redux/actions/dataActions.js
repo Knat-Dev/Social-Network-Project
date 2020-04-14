@@ -83,9 +83,15 @@ export const postScream = (scream) => (dispatch) => {
 
 export const submitComment = (screamId, commentData) => (dispatch) => {
   axios
-    .post(`${process.env.REACT_APP_API}/scream/${screamId}/comment`)
+    .post(
+      `${process.env.REACT_APP_API}/scream/${screamId}/comment`,
+      commentData
+    )
     .then((res) => {
-      dispatch({ type: SUBMIT_COMMENT, payload: res.data });
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: { data: res.data.doc, screamId },
+      });
       dispatch(clearErrors());
     })
     .catch((e) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 import TooltipButton from '../util/TooltipButton';

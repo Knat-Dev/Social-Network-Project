@@ -58,14 +58,25 @@ export default (state = initialState, action) => {
         screams: [action.payload, ...state.screams],
       };
     }
-    case SUBMIT_COMMENT:
+    case SUBMIT_COMMENT: {
+      const { data, screamId } = action.payload;
+      const i = state.screams.findIndex(
+        (scream) => scream.screamId === action.payload.screamId
+      );
+      state.screams[i] = {
+        ...state.screams[i],
+        commentCount: state.screams[i].commentCount + 1,
+      };
+      console.log(state.screams);
+      state.scream.commentCount++;
       return {
         ...state,
         scream: {
           ...state.scream,
-          comments: [action.payload, ...state.scream.comments],
+          comments: [data, ...state.scream.comments],
         },
       };
+    }
     default:
       return state;
   }

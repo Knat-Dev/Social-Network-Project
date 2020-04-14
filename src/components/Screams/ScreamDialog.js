@@ -93,7 +93,7 @@ function ScreamDialog({
             commentCount={commentCount}
           />
           <Grid container>
-            <CommentForm />
+            <CommentForm screamId={screamId} />
           </Grid>
         </Grid>
       </Grid>

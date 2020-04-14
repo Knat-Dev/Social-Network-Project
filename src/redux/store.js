@@ -13,13 +13,11 @@ const reducers = combineReducers({
   ui: uiReducer,
   data: dataReducer,
 });
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   reducers,
   initialState,
-  compose(
-    applyMiddleware(...middlware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeEnhancers(applyMiddleware(...middlware))
 );
 export default store;

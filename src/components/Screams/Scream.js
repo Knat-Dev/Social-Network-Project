@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   makeStyles,
   Card,
@@ -83,6 +83,10 @@ function Scream({
   const deleteScream = authenticated && displayName === authDisplayName && (
     <DeleteScream screamId={screamId} />
   );
+
+  useEffect(() => {
+    console.log(commentCount);
+  }, [commentCount]);
 
   return (
     <Card className={classes.card}>
