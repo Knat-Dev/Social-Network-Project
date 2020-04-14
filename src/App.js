@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
-import { CssBaseline, Container } from '@material-ui/core';
+import { CssBaseline, Container, makeStyles } from '@material-ui/core';
 import { ThemeProvider } from './Providers/ThemeProvider';
 import jwtDecode from 'jwt-decode';
 import AuthRoute from './components/util/AuthRoute';
@@ -33,14 +33,25 @@ if (token) {
   }
 }
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: '80px',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '120px',
+    },
+  },
+}));
+
 function App() {
+  const classes = useStyles();
+
   return (
     <BrowserRouter>
       <ThemeProvider>
         <CssBaseline />
         <Provider store={store}>
           <Navbar />
-          <Container style={{ marginTop: '80px' }}>
+          <Container className={classes.container}>
             <Route exact path="/" component={Home} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/signup" component={Signup} />

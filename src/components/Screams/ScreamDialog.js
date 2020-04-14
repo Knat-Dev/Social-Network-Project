@@ -20,10 +20,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import TooltipButton from '../util/TooltipButton';
 import SocialButtons from './SocialButtons';
 import Comments from './Comments';
-
+import CommentForm from './CommentForm';
 const useStyles = makeStyles((theme) => ({
   profileImage: {
-    maxWidth: 200,
+    maxWidth: '100%',
+    borderRadius: '50%',
   },
   title: {
     color: 'white',
@@ -40,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
   },
   dialogContent: {
-    padding: '30px',
+    padding: '20px',
+    marginTop: '1rem',
   },
   progress: {
     margin: '0 auto',
@@ -50,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     padding: '26px 0',
+  },
+  screamContent: {
+    wordWrap: 'break-word',
   },
 }));
 
@@ -79,12 +84,19 @@ function ScreamDialog({
 
   const actionArea = !loading && (
     <DialogActions>
-      <SocialButtons
-        screamId={screamId}
-        likeCount={likeCount}
-        likedScream={likedScream}
-        commentCount={commentCount}
-      />
+      <Grid container direction="column">
+        <Grid container justify="flex-end">
+          <SocialButtons
+            screamId={screamId}
+            likeCount={likeCount}
+            likedScream={likedScream}
+            commentCount={commentCount}
+          />
+          <Grid container>
+            <CommentForm />
+          </Grid>
+        </Grid>
+      </Grid>
     </DialogActions>
   );
 
@@ -100,15 +112,15 @@ function ScreamDialog({
     </div>
   ) : (
     <>
-      <Grid container>
-        <Grid item sm={5}>
+      <Grid container spacing={2}>
+        <Grid item sm={2} xs={2}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
-        <Grid item sm={7} style={{ wordWrap: 'break-word' }}>
+        <Grid item sm={7} xs={10} className={classes.screamContent}>
           <Typography
             component={Link}
             color="primary"
-            variant="h5"
+            variant="h6"
             to={`/users/${displayName}`}
           >
             @{displayName}
@@ -121,6 +133,8 @@ function ScreamDialog({
           <Typography variant="body1">{body}</Typography>
         </Grid>
       </Grid>
+      {actionArea}
+      {commentView}
     </>
   );
 
@@ -144,8 +158,6 @@ function ScreamDialog({
         <DialogContent className={classes.dialogContent}>
           {dialogMarkup}
         </DialogContent>
-        {actionArea}
-        {commentView}
       </Dialog>
     </>
   );

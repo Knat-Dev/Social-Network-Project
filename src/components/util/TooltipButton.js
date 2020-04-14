@@ -14,12 +14,13 @@ export default function TooltipIconButton({
   tip,
   to,
   badgeContent,
+  color,
 }) {
   const classes = useStyles();
   return (
     <Tooltip title={tip}>
       <Link to={to ? to : ''} className={classes.link}>
-        <IconButton onClick={onClick} color={'primary'}>
+        <IconButton onClick={onClick} color={color ? color : 'primary'}>
           <Badge color="secondary" badgeContent={badgeContent}>
             {children}
           </Badge>

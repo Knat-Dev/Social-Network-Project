@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import dayjs from 'dayjs';
 import { Grid, Typography, makeStyles, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import CommentForm from './CommentForm';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -28,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Comments({ comments }) {
   const classes = useStyles();
+
   return (
     <Grid container>
       {comments &&
@@ -36,20 +36,16 @@ export default function Comments({ comments }) {
           return (
             <Fragment key={createdAt}>
               <Grid item sm={12}>
-                <Divider style={{ margin: '1rem 0' }} />
+                {index !== 0 && <Divider style={{ margin: '1rem 0' }} />}
 
                 <Grid container alignItems={'center'}>
-                  <Grid item sm={2}>
-                    <img
-                      src={userImage}
-                      alt="comment-image"
-                      className={classes.commentImage}
-                    />
+                  <Grid item sm={2} xs={2}>
+                    <img src={userImage} className={classes.commentImage} />
                   </Grid>
-                  <Grid item sm={9}>
+                  <Grid item sm={10}>
                     <div className={classes.commentData}>
                       <Typography
-                        variant="h5"
+                        variant="body1"
                         component={Link}
                         className={classes.link}
                         to={`/users/${displayName}`}
@@ -72,7 +68,6 @@ export default function Comments({ comments }) {
             </Fragment>
           );
         })}
-      <CommentForm />
     </Grid>
   );
 }
