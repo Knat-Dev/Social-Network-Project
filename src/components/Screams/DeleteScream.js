@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import DeleteIcon from '@material-ui/icons/DeleteOutlined';
-import TooltipIconButton from '../util/TooltipButton';
 import {
   Dialog,
   DialogContent,
@@ -8,6 +7,8 @@ import {
   DialogContentText,
   DialogTitle,
   Button,
+  Tooltip,
+  IconButton,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { deleteScream } from '../../redux/actions/dataActions';
@@ -30,9 +31,11 @@ const DeleteScream = ({ screamId, deleteScream }) => {
 
   return (
     <>
-      <TooltipIconButton onClick={handleClickOpen} tip="Delete Scream">
-        <DeleteIcon color="secondary" />
-      </TooltipIconButton>
+      <Tooltip title="Delete Scream">
+        <IconButton onClick={handleClickOpen}>
+          <DeleteIcon color="secondary" />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={handleClose}

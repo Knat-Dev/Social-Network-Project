@@ -28,6 +28,15 @@ function PostScream({
     setErrors(_errors);
   }, [_errors]);
 
+  useEffect(() => {
+    !loading && Object.keys(_errors).length === 0 && setOpen(false);
+    setBody('');
+  }, [loading, _errors]);
+
+  useEffect(() => {
+    body !== '' && setErrors({});
+  }, [body]);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -59,6 +68,7 @@ function PostScream({
         <DialogTitle>{'Post Scream'}</DialogTitle>
         <DialogContent>
           <TextField
+            onKeyPress={(e) => (e.key === 'Enter' ? post() : null)}
             autoFocus
             label="Scream Body"
             fullWidth

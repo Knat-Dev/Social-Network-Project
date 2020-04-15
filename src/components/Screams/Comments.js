@@ -40,7 +40,11 @@ export default function Comments({ comments }) {
 
                 <Grid container alignItems={'center'}>
                   <Grid item sm={2} xs={2}>
-                    <img src={userImage} className={classes.commentImage} />
+                    <img
+                      src={userImage}
+                      className={classes.commentImage}
+                      alt=""
+                    />
                   </Grid>
                   <Grid item sm={10}>
                     <div className={classes.commentData}>

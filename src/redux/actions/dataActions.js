@@ -11,6 +11,7 @@ import {
   SET_SCREAM,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
+  SET_PROFILE_SCREAMS,
 } from '../types';
 import axios from 'axios';
 
@@ -90,12 +91,27 @@ export const submitComment = (screamId, commentData) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: SUBMIT_COMMENT,
-        payload: { data: res.data.doc, screamId },
+        payload: res.data.doc,
       });
       dispatch(clearErrors());
     })
     .catch((e) => {
       dispatch({ type: SET_ERRORS, payload: e.response.data });
+    });
+};
+
+export const getUserData = (displayName) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`${process.env.REACT_APP_API}/user/${displayName}`)
+    .then((res) => {
+      dispatch({
+        type: SET_PROFILE_SCREAMS,
+        payload: res.data,
+      });
+    })
+    .catch(() => {
+      dispatch({ type: SET_PROFILE_SCREAMS, payload: {} });
     });
 };
 

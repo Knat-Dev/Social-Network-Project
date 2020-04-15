@@ -13,7 +13,7 @@ function Home({ getScreams, data: { screams, loading } }) {
   return (
     <Grid container spacing={3}>
       <Grid item sm={8} xs={12}>
-        <RecentScreams screams={screams} />
+        <RecentScreams screams={screams} loading={loading} />
       </Grid>
       <Grid item sm={4} xs={12}>
         <Profile />

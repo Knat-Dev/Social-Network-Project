@@ -12,6 +12,7 @@ import {
   Divider,
   CircularProgress,
   DialogActions,
+  Tooltip,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { getScream } from '../../redux/actions/dataActions';
@@ -108,7 +109,7 @@ function ScreamDialog({
 
   const dialogMarkup = loading ? (
     <div className={classes.flex}>
-      <CircularProgress size={150} className={classes.progress} />
+      <CircularProgress thickness={2} size={150} className={classes.progress} />
     </div>
   ) : (
     <>
@@ -140,9 +141,11 @@ function ScreamDialog({
 
   return (
     <>
-      <TooltipButton onClick={handleClickOpen} tip="Expand Scream">
-        <UnfoldMoreIcon color="primary" />
-      </TooltipButton>
+      <Tooltip title="Expand Scream">
+        <IconButton onClick={handleClickOpen}>
+          <UnfoldMoreIcon color="primary" />
+        </IconButton>
+      </Tooltip>
       <Dialog fullWidth open={open} onClose={handleClose} maxWidth="sm">
         <DialogTitle className={classes.title}>
           Scream Details

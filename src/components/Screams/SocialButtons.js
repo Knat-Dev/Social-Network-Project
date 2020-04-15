@@ -39,13 +39,21 @@ function SocialButtons({
       <FavoriteBorder color="primary" />
     </TooltipButton>
   ) : likedScream() ? (
-    <TooltipButton tip="Unlike" badgeContent={likeCount} onClick={unlike}>
-      <FavoriteIcon color="primary" />
-    </TooltipButton>
+    <Tooltip title="Unlike">
+      <IconButton onClick={unlike}>
+        <Badge color={'secondary'} badgeContent={likeCount}>
+          <FavoriteIcon color="primary" />
+        </Badge>
+      </IconButton>
+    </Tooltip>
   ) : (
-    <TooltipButton tip="Like" badgeContent={likeCount} onClick={like}>
-      <FavoriteBorder color="primary" />
-    </TooltipButton>
+    <Tooltip title="Like">
+      <IconButton onClick={like}>
+        <Badge color={'secondary'} badgeContent={likeCount}>
+          <FavoriteBorder color="primary" />
+        </Badge>
+      </IconButton>
+    </Tooltip>
   );
 
   return (

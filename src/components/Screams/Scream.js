@@ -6,10 +6,7 @@ import {
   Typography,
   Avatar,
   CardActions,
-  IconButton,
   CardActionArea,
-  Tooltip,
-  Badge,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -83,10 +80,6 @@ function Scream({
   const deleteScream = authenticated && displayName === authDisplayName && (
     <DeleteScream screamId={screamId} />
   );
-
-  useEffect(() => {
-    console.log(commentCount);
-  }, [commentCount]);
 
   return (
     <Card className={classes.card}>

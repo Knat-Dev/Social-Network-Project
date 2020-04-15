@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 import axios from 'axios';
+import User from './components/pages/User';
 
 const token = localStorage.FBIdToken;
 if (token) {
@@ -53,6 +54,7 @@ function App() {
           <Navbar />
           <Container className={classes.container}>
             <Route exact path="/" component={Home} />
+            <Route path="/users/:displayName" component={User} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/signup" component={Signup} />
           </Container>

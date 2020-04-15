@@ -8,6 +8,8 @@ import {
   Typography,
   Tooltip,
   IconButton,
+  Grid,
+  CircularProgress,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -192,7 +194,11 @@ const Profile = ({
       </Paper>
     )
   ) : (
-    <p>loading</p>
+    <Grid container justify="center">
+      <Grid item>
+        <CircularProgress thickness={2} size={150} />
+      </Grid>
+    </Grid>
   );
 
   return profileMarkup;

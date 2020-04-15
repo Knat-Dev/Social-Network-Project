@@ -1,29 +1,22 @@
 import React, { useState } from 'react';
 import {
   TextField,
-  Button,
-  makeStyles,
   Grid,
   FormControl,
-  IconButton,
-  InputLabel,
   InputAdornment,
-  FilledInput,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { submitComment } from '../../redux/actions/dataActions';
 import SendIcon from '@material-ui/icons/Send';
 import TooltipIconButton from '../util/TooltipButton';
 
-const useStyles = makeStyles((theme) => ({}));
-
 function CommentForm({ ui, submitComment, authenticated, screamId }) {
   const [commentBody, setCommentBody] = useState('');
-  const classes = useStyles();
 
   const onSubmit = (e) => {
     e.preventDefault();
     submitComment(screamId, { body: commentBody });
+    setCommentBody('');
   };
 
   const formMarkup = authenticated && (
@@ -37,7 +30,11 @@ function CommentForm({ ui, submitComment, authenticated, screamId }) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <TooltipIconButton color="inherit" tip="Send Comment">
+                  <TooltipIconButton
+                    onClick={onSubmit}
+                    color="inherit"
+                    tip="Send Comment"
+                  >
                     <SendIcon color="inherit" />
                   </TooltipIconButton>
                 </InputAdornment>

@@ -7,11 +7,13 @@ import {
   POST_SCREAM,
   SET_SCREAM,
   SUBMIT_COMMENT,
+  SET_PROFILE_SCREAMS,
 } from '../types';
 
 const initialState = {
   screams: [],
   scream: {},
+  profile: {},
   loading: false,
 };
 
@@ -34,6 +36,12 @@ export default (state = initialState, action) => {
         screams: action.payload,
         loading: false,
       };
+    case SET_PROFILE_SCREAMS:
+      return {
+        ...state,
+        profile: action.payload,
+        loading: false,
+      };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM: {
       let index = state.screams.findIndex(
@@ -42,7 +50,22 @@ export default (state = initialState, action) => {
       state.screams[index] = action.payload;
       if (state.scream.screamId === action.payload.screamId)
         state.scream = { ...state.scream, ...action.payload };
-      return { ...state };
+      console.log(action.payload);
+      state.profile.screams[index] = action.payload;
+      console.log(state.profile);
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          screams:
+            state.profile.screams &&
+            state.profile.screams.map((scream) => {
+              if (action.payload.screamId === scream.screamId)
+                return { ...state.scream, ...action.payload };
+              return scream;
+            }),
+        },
+      };
     }
     case DELETE_SCREAM: {
       return {
@@ -50,30 +73,48 @@ export default (state = initialState, action) => {
         screams: state.screams.filter(
           (scream) => scream.screamId !== action.payload
         ),
+        profile: {
+          ...state.profile,
+          screams:
+            state.profile.screams &&
+            state.profile.screams.filter(
+              (scream) => scream.screamId !== action.payload
+            ),
+        },
       };
     }
     case POST_SCREAM: {
       return {
         ...state,
         screams: [action.payload, ...state.screams],
+        profile: {
+          ...state.profile,
+          screams: [action.payload, ...state.profile.screams],
+        },
       };
     }
     case SUBMIT_COMMENT: {
-      const { data, screamId } = action.payload;
-      const i = state.screams.findIndex(
-        (scream) => scream.screamId === action.payload.screamId
-      );
-      state.screams[i] = {
-        ...state.screams[i],
-        commentCount: state.screams[i].commentCount + 1,
-      };
-      console.log(state.screams);
-      state.scream.commentCount++;
       return {
         ...state,
+        screams: state.screams.map((scream) => {
+          if (scream.screamId === state.scream.screamId)
+            return { ...scream, commentCount: scream.commentCount + 1 };
+          else return scream;
+        }),
         scream: {
           ...state.scream,
-          comments: [data, ...state.scream.comments],
+          commentCount: state.scream.commentCount + 1,
+          comments: [action.payload, ...state.scream.comments],
+        },
+        profile: {
+          ...state.profile,
+          screams:
+            state.profile.screams &&
+            state.profile.screams.map((scream) => {
+              if (scream.screamId === state.scream.screamId)
+                return { ...scream, commentCount: scream.commentCount + 1 };
+              else return scream;
+            }),
         },
       };
     }
