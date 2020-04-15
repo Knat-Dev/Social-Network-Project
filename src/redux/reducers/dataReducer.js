@@ -50,9 +50,6 @@ export default (state = initialState, action) => {
       state.screams[index] = action.payload;
       if (state.scream.screamId === action.payload.screamId)
         state.scream = { ...state.scream, ...action.payload };
-      console.log(action.payload);
-      state.profile.screams[index] = action.payload;
-      console.log(state.profile);
       return {
         ...state,
         profile: {
@@ -89,7 +86,10 @@ export default (state = initialState, action) => {
         screams: [action.payload, ...state.screams],
         profile: {
           ...state.profile,
-          screams: [action.payload, ...state.profile.screams],
+          screams: state.profile.screams && [
+            action.payload,
+            ...state.profile.screams,
+          ],
         },
       };
     }
