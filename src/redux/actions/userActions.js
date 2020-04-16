@@ -5,6 +5,7 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
+  MARK_NOTIFICATIONS_READ,
 } from '../types';
 import axios from 'axios';
 
@@ -84,6 +85,16 @@ export const uploadImage = (formData) => (dispatch) => {
     .post(`${process.env.REACT_APP_API}/user/image`, formData)
     .then((response) => {
       dispatch(getUserData());
+    })
+    .catch((e) => console.error(e));
+};
+
+export const markNotificationsRead = (notificationIds) => (dispatch) => {
+  console.log(notificationIds);
+  axios
+    .post(`${process.env.REACT_APP_API}/notifications`, notificationIds)
+    .then((res) => {
+      dispatch({ type: MARK_NOTIFICATIONS_READ, payload: notificationIds });
     })
     .catch((e) => console.error(e));
 };

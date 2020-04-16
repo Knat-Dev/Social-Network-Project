@@ -13,15 +13,11 @@ import {
   Grid,
 } from '@material-ui/core';
 import { ThemeContext } from '../Providers/ThemeProvider';
-import {
-  Brightness4,
-  Brightness7,
-  Home,
-  Notifications,
-} from '@material-ui/icons';
+import { Brightness4, Brightness7, Home } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import TooltipIconButton from './util/TooltipIconButton';
 import PostScream from './Screams/PostScream';
+import Notifications from './Notifications';
 const useStyles = makeStyles((theme) => ({
   right: {
     display: 'flex',
@@ -59,7 +55,7 @@ const Navbar = ({ authenticated }) => {
   };
   const classes = useStyles();
   return (
-    <AppBar>
+    <AppBar color={theme.palette.type === 'dark' ? 'default' : 'primary'}>
       <Toolbar>
         <Grid container alignItems="center" justify="center">
           <Grid item sm={4}></Grid>
@@ -70,11 +66,7 @@ const Navbar = ({ authenticated }) => {
                 <TooltipIconButton tip="Home" onClick={() => {}} to="/">
                   <Home />
                 </TooltipIconButton>
-                <Tooltip title="Notifications">
-                  <IconButton className={classes.iconButton}>
-                    <Notifications />
-                  </IconButton>
-                </Tooltip>
+                <Notifications />
               </>
             ) : (
               <>

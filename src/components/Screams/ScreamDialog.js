@@ -81,6 +81,11 @@ function ScreamDialog({
     if (openDialog) handleClickOpen();
   }, [openDialog]);
 
+  useEffect(() => {
+    if (window.location.pathname === `/users/${displayName}/scream/${screamId}`)
+      handleClickOpen();
+  }, [window.location.pathname]);
+
   const handleClickOpen = () => {
     setOldPath(window.location.pathname);
     const path = `/users/${displayName}/scream/${screamId}`;
