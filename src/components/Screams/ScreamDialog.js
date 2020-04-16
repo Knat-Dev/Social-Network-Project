@@ -60,26 +60,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ScreamDialog({
+  openDialog,
   scream: { userImage, createdAt, body, likeCount, commentCount, comments },
   ui: { loading },
-  authenticated,
   getScream,
   likedScream,
   screamId,
   displayName,
 }) {
   const classes = useStyles();
-
   const [open, setOpen] = useState(false);
+  const [oldPath, setOldPath] = useState('');
+  const [newPath, setNewPath] = useState('');
+
   useEffect(() => {
     if (open === true) getScream(screamId);
   }, [open, getScream, screamId]);
 
+  useEffect(() => {
+    if (openDialog) handleClickOpen();
+  }, [openDialog]);
+
   const handleClickOpen = () => {
+    setOldPath(window.location.pathname);
+    const path = `/users/${displayName}/scream/${screamId}`;
+    window.history.pushState(null, null, path);
+    setNewPath(path);
     setOpen(true);
   };
 
   const handleClose = () => {
+    if (oldPath !== newPath) window.history.pushState(null, null, oldPath);
+    else window.history.pushState(null, null, `/users/${displayName}`);
     setOpen(false);
   };
 
@@ -126,7 +138,6 @@ function ScreamDialog({
           >
             @{displayName}
           </Typography>
-          <hr className={classes.invisibleSeperator} />
           <Typography color="textSecondary" variant="body2">
             {dayjs(createdAt).format('h:mm A, MMMM DD YYYY')}
           </Typography>

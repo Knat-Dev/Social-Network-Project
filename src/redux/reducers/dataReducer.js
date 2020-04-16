@@ -81,15 +81,19 @@ export default (state = initialState, action) => {
       };
     }
     case POST_SCREAM: {
+      console.log(action.payload);
       return {
         ...state,
         screams: [action.payload, ...state.screams],
         profile: {
           ...state.profile,
-          screams: state.profile.screams && [
-            action.payload,
-            ...state.profile.screams,
-          ],
+          screams:
+            state.profile &&
+            state.profile.screams &&
+            state.profile.user.displayName &&
+            action.payload.displayName === state.profile.user.displayName
+              ? [action.payload, ...state.profile.screams]
+              : state.profile.screams && [...state.profile.screams],
         },
       };
     }

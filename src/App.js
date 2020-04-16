@@ -54,7 +54,12 @@ function App() {
           <Navbar />
           <Container className={classes.container}>
             <Route exact path="/" component={Home} />
-            <Route path="/users/:displayName" component={User} />
+            <Route exact path="/users/:displayName" component={User} />
+            <Route
+              exact
+              path="/users/:displayName/scream/:screamId"
+              component={User}
+            />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/signup" component={Signup} />
           </Container>

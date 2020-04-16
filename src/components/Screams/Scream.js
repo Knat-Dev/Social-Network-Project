@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Scream({
+  openDialog = null,
   likeScream,
   unlikeScream,
   user: {
@@ -123,6 +124,7 @@ function Scream({
         </div>
         {deleteScream}
         <ScreamDialog
+          openDialog={openDialog}
           screamId={screamId}
           displayName={displayName}
           likedScream={likedScream}
