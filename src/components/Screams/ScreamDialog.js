@@ -22,6 +22,9 @@ import TooltipButton from '../util/TooltipButton';
 import SocialButtons from './SocialButtons';
 import Comments from './Comments';
 import CommentForm from './CommentForm';
+import { Scrollbars } from 'react-custom-scrollbars';
+import Scroll from '../layout/Scroll';
+
 const useStyles = makeStyles((theme) => ({
   profileImage: {
     maxWidth: '100%',
@@ -84,7 +87,7 @@ function ScreamDialog({
   useEffect(() => {
     if (window.location.pathname === `/users/${displayName}/scream/${screamId}`)
       handleClickOpen();
-  }, [window.location.pathname]);
+  }, [window.location.pathname, displayName]);
 
   const handleClickOpen = () => {
     setOldPath(window.location.pathname);
@@ -120,7 +123,13 @@ function ScreamDialog({
 
   const commentView = (
     <DialogContent>
-      <Comments comments={comments} />
+      {comments && comments.length > 0 ? (
+        <Comments comments={comments} />
+      ) : (
+        <Typography align="center" variant="h5" style={{ fontWeight: '300' }}>
+          Be the first to comment!
+        </Typography>
+      )}
     </DialogContent>
   );
 
@@ -151,7 +160,7 @@ function ScreamDialog({
         </Grid>
       </Grid>
       {actionArea}
-      {commentView}
+      <Scroll autoHeight>{commentView}</Scroll>
     </>
   );
 

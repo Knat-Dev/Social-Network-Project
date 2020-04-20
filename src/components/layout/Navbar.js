@@ -12,12 +12,12 @@ import {
   Tooltip,
   Grid,
 } from '@material-ui/core';
-import { ThemeContext } from '../Providers/ThemeProvider';
+import { ThemeContext } from '../../Providers/ThemeProvider';
 import { Brightness4, Brightness7, Home } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import TooltipIconButton from './util/TooltipIconButton';
-import PostScream from './Screams/PostScream';
-import Notifications from './Notifications';
+import TooltipIconButton from '../util/TooltipIconButton';
+import PostScream from '../Screams/PostScream';
+import Notifications from '../Notifications';
 const useStyles = makeStyles((theme) => ({
   right: {
     display: 'flex',

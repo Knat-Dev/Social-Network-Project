@@ -5,7 +5,7 @@ import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 // My components
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
@@ -19,6 +19,7 @@ import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 import axios from 'axios';
 import User from './components/pages/User';
+import Scroll from './components/layout/Scroll';
 
 const token = localStorage.FBIdToken;
 if (token) {
@@ -52,17 +53,19 @@ function App() {
         <CssBaseline />
         <Provider store={store}>
           <Navbar />
-          <Container className={classes.container}>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/users/:displayName" component={User} />
-            <Route
-              exact
-              path="/users/:displayName/scream/:screamId"
-              component={User}
-            />
-            <AuthRoute exact path="/login" component={Login} />
-            <AuthRoute exact path="/signup" component={Signup} />
-          </Container>
+          <Scroll>
+            <Container className={classes.container}>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/users/:displayName" component={User} />
+              <Route
+                exact
+                path="/users/:displayName/scream/:screamId"
+                component={User}
+              />
+              <AuthRoute exact path="/login" component={Login} />
+              <AuthRoute exact path="/signup" component={Signup} />
+            </Container>
+          </Scroll>
         </Provider>
       </ThemeProvider>
     </BrowserRouter>
